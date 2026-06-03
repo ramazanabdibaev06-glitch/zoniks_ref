@@ -1,0 +1,24 @@
+# Secrets / environment
+.env
+*.env
+
+# Databases (contain user data)
+*.db
+*.db-shm
+*.db-wal
+backups/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Kiro spec internals
+.kiro/specs/**/.config.kiro
+
+# OS / editor
+.DS_Store
+Thumbs.db
