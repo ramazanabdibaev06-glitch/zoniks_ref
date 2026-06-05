@@ -770,8 +770,17 @@ async def phone_contact_ok(message: Message, state: FSMContext):
 
     phone = (contact.phone_number or "").strip()
     phone = phone if phone.startswith("+") else "+" + phone
-    if not phone.startswith("+998"):
-        await message.answer("❌ Faqat O'zbekiston raqamlari qabul qilinadi (+998...).")
+    # Qabul qilinadigan davlatlar: O'zbekiston (+998), Qozog'iston (+77),
+    # Qirg'iziston (+996), Tojikiston (+992)
+    allowed_prefixes = ("+998", "+996", "+992", "+77")
+    if not phone.startswith(allowed_prefixes):
+        await message.answer(
+            "❌ Faqat quyidagi davlat raqamlari qabul qilinadi:\n"
+            "🇺🇿 O'zbekiston (+998)\n"
+            "🇰🇿 Qozog'iston (+77)\n"
+            "🇰🇬 Qirg'iziston (+996)\n"
+            "🇹🇯 Tojikiston (+992)"
+        )
         return
 
     await set_phone_verified(user_id, phone)
